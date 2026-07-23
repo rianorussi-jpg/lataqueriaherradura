@@ -46,9 +46,10 @@
   /* ===== header ===== */
   header{
     position:sticky; top:0; z-index:50;
-    background:var(--rojo-oscuro);
+    background:#E8E2D4;
     padding:14px 20px 0 20px;
-    box-shadow:0 3px 10px rgba(0,0,0,0.25);
+    box-shadow:0 3px 10px rgba(0,0,0,0.12);
+    border-bottom:1px solid rgba(42,26,18,0.08);
   }
   .brand-row{
     display:flex; align-items:center; justify-content:space-between;
@@ -65,7 +66,19 @@
     line-height:1;
   }
   .logo-text span{color:var(--amarillo);}
-  .icon-btns{display:flex; gap:16px; color:var(--blanco);}
+  .contact-link{
+    color:var(--rojo);
+    font-weight:800;
+    font-size:0.85rem;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    text-decoration:none;
+    border:1.5px solid var(--rojo);
+    padding:7px 16px;
+    border-radius:999px;
+    transition:all 0.2s ease;
+  }
+  .contact-link:hover{background:var(--rojo); color:var(--blanco);}
   .icon-btns svg{width:22px; height:22px;}
 
   nav.pills{
@@ -76,9 +89,9 @@
   nav.pills::-webkit-scrollbar{display:none;}
   .pill{
     flex:0 0 auto;
-    background:transparent;
-    border:1.5px solid rgba(255,253,248,0.35);
-    color:var(--blanco);
+    background:var(--blanco);
+    border:1.5px solid rgba(42,26,18,0.25);
+    color:var(--carbon);
     font-family:'Nunito Sans', sans-serif;
     font-weight:700;
     font-size:0.78rem;
@@ -90,11 +103,11 @@
     white-space:nowrap;
     transition:all 0.2s ease;
   }
-  .pill:hover{border-color:var(--amarillo);}
+  .pill:hover{border-color:var(--rojo); color:var(--rojo);}
   .pill.active{
-    background:var(--amarillo);
-    border-color:var(--amarillo);
-    color:var(--carbon);
+    background:var(--rojo);
+    border-color:var(--rojo);
+    color:var(--blanco);
   }
 
   /* ===== hero ===== */
@@ -209,7 +222,7 @@
     text-align:center;
     padding:34px 20px 40px;
   }
-  footer .herradura-small{width:40px; height:40px; color:var(--amarillo); margin-bottom:10px;}
+  footer .herradura-small-img{width:40px; height:auto; margin-bottom:10px;}
   footer p{font-weight:700; font-size:0.85rem; opacity:0.7; margin:4px 0;}
 </style>
 </head>
@@ -222,10 +235,7 @@
     <div class="logo">
       <img src="/images/logo.png" alt="La Herradura" class="logo-img">
     </div>
-    <div class="icon-btns">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-    </div>
+    <a href="https://wa.me/525542641224" target="_blank" rel="noopener" class="contact-link">Contacto</a>
   </div>
   <nav class="pills" id="pillNav"></nav>
 </header>
@@ -365,11 +375,7 @@
 </section>
 
 <footer>
-  <svg class="herradura-small" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="9">
-    <path d="M25 15 C15 15 12 25 12 40 L12 60 C12 78 25 90 50 90 C75 90 88 78 88 60 L88 40 C88 25 85 15 75 15" stroke-linecap="round"/>
-    <circle cx="18" cy="18" r="4.5" fill="currentColor" stroke="none"/>
-    <circle cx="82" cy="18" r="4.5" fill="currentColor" stroke="none"/>
-  </svg>
+  <img src="/images/herradura.png" alt="Herradura" class="herradura-small-img">
   <p>TAQUERÍA LA HERRADURA</p>
   <p style="opacity:0.45; font-size:0.7rem;">Menú de prueba — precios de ejemplo</p>
 </footer>
