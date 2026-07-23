@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Herradura — Menú</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rojo: #C1272D;
+    --rojo-oscuro: #7E181C;
+    --crema: #FBF1DC;
+    --amarillo: #F4B41A;
+    --amarillo-op: #FDE49A;
+    --carbon: #2A1A12;
+    --blanco: #FFFDF8;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--crema);
+    color:var(--carbon);
+    font-family:'Nunito Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3, .display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+  }
+
+  /* ===== progress herradura ===== */
+  .progress-wrap{
+    position:fixed; top:0; left:0; right:0; height:6px; z-index:60;
+    background:rgba(42,26,18,0.12);
+  }
+  .progress-bar{
+    height:100%; width:0%;
+    background:linear-gradient(90deg, var(--amarillo), var(--rojo));
+    transition:width 0.1s linear;
+  }
+
+  /* ===== header ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--carbon);
+    padding:14px 20px 0 20px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.25);
+  }
+  .brand-row{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:12px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo svg{width:34px; height:34px; flex-shrink:0;}
+  .logo-text{
+    color:var(--blanco);
+    font-size:1.5rem;
+    line-height:1;
+  }
+  .logo-text span{color:var(--amarillo);}
+  .icon-btns{display:flex; gap:16px; color:var(--blanco);}
+  .icon-btns svg{width:22px; height:22px;}
+
+  nav.pills{
+    display:flex; gap:8px; overflow-x:auto;
+    padding-bottom:12px;
+    scrollbar-width:none;
+  }
+  nav.pills::-webkit-scrollbar{display:none;}
+  .pill{
+    flex:0 0 auto;
+    background:transparent;
+    border:1.5px solid rgba(255,253,248,0.35);
+    color:var(--blanco);
+    font-family:'Nunito Sans', sans-serif;
+    font-weight:700;
+    font-size:0.78rem;
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+    padding:8px 14px;
+    border-radius:999px;
+    cursor:pointer;
+    white-space:nowrap;
+    transition:all 0.2s ease;
+  }
+  .pill:hover{border-color:var(--amarillo);}
+  .pill.active{
+    background:var(--amarillo);
+    border-color:var(--amarillo);
+    color:var(--carbon);
+  }
+
+  /* ===== hero ===== */
+  .hero{
+    position:relative;
+    padding:56px 24px 64px;
+    text-align:center;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(244,180,26,0.25), transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(193,39,45,0.25), transparent 45%),
+      var(--crema);
+    overflow:hidden;
+  }
+  .hero .herradura-big{
+    width:110px; height:110px; margin:0 auto 18px;
+    color:var(--rojo);
+  }
+  .hero h1{
+    font-size:2.6rem;
+    color:var(--rojo);
+    margin:0 0 6px;
+    line-height:0.95;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--carbon);
+    display:block;
+    font-size:1.1rem;
+    letter-spacing:3px;
+    margin-top:6px;
+  }
+  .hero p{
+    max-width:340px; margin:14px auto 0;
+    font-weight:600; color:var(--carbon); opacity:0.75;
+    font-size:0.95rem;
+  }
+
+  /* ===== sections ===== */
+  section{
+    scroll-margin-top:118px;
+  }
+  .band{
+    padding:34px 20px 10px;
+  }
+  .band h2{
+    font-size:1.9rem;
+    text-align:center;
+    margin:0 0 4px;
+  }
+  .band .sub{
+    text-align:center;
+    font-weight:700;
+    font-size:0.72rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    opacity:0.6;
+    margin-bottom:22px;
+  }
+
+  .band--rojo{background:var(--rojo); color:var(--blanco);}
+  .band--rojo .sub{color:var(--amarillo-op);}
+  .band--crema{background:var(--crema); color:var(--carbon);}
+  .band--amarillo{background:var(--amarillo); color:var(--carbon);}
+  .band--carbon{background:var(--carbon); color:var(--blanco);}
+  .band--carbon .sub{color:var(--amarillo);}
+
+  .items{
+    max-width:520px; margin:0 auto;
+    padding-bottom:36px;
+  }
+  .item{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:12px;
+    padding:13px 4px;
+    border-bottom:1.5px dashed currentColor;
+    opacity:0.95;
+  }
+  .item:last-child{border-bottom:none;}
+  .item .name{
+    font-weight:800;
+    font-size:1rem;
+  }
+  .item .desc{
+    display:block;
+    font-weight:600;
+    font-size:0.78rem;
+    opacity:0.7;
+    margin-top:2px;
+  }
+  .item .price{
+    font-family:'Anton', sans-serif;
+    font-size:1.05rem;
+    white-space:nowrap;
+  }
+  .badge{
+    display:inline-block;
+    background:var(--carbon);
+    color:var(--amarillo);
+    font-size:0.62rem;
+    font-weight:800;
+    padding:2px 7px;
+    border-radius:5px;
+    margin-left:6px;
+    vertical-align:middle;
+    letter-spacing:0.5px;
+  }
+  .band--rojo .badge, .band--carbon .badge{background:var(--amarillo); color:var(--carbon);}
+
+  footer{
+    background:var(--carbon);
+    color:var(--blanco);
+    text-align:center;
+    padding:34px 20px 40px;
+  }
+  footer .herradura-small{width:40px; height:40px; color:var(--amarillo); margin-bottom:10px;}
+  footer p{font-weight:700; font-size:0.85rem; opacity:0.7; margin:4px 0;}
+</style>
+</head>
+<body>
+
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+
+<header>
+  <div class="brand-row">
+    <div class="logo">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="9" style="color:var(--amarillo)">
+        <path d="M25 15 C15 15 12 25 12 40 L12 60 C12 78 25 90 50 90 C75 90 88 78 88 60 L88 40 C88 25 85 15 75 15" stroke-linecap="round"/>
+        <circle cx="18" cy="18" r="4.5" fill="currentColor" stroke="none"/>
+        <circle cx="82" cy="18" r="4.5" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="logo-text">LA<br><span>HERRADURA</span></div>
+    </div>
+    <div class="icon-btns">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    </div>
+  </div>
+  <nav class="pills" id="pillNav"></nav>
+</header>
+
+<section class="hero">
+  <svg class="herradura-big" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8">
+    <path d="M25 15 C15 15 12 25 12 40 L12 60 C12 78 25 90 50 90 C75 90 88 78 88 60 L88 40 C88 25 85 15 75 15" stroke-linecap="round"/>
+    <circle cx="18" cy="18" r="4" fill="currentColor" stroke="none"/>
+    <circle cx="82" cy="18" r="4" fill="currentColor" stroke="none"/>
+  </svg>
+  <h1>Menú<em>Taquería La Herradura</em></h1>
+  <p>Sabor con suerte de sobra. Toca una sección para ir directo a lo que se te antoja.</p>
+</section>
+
+<!-- SECTIONS DATA -->
+
+<section id="especialidades" class="band band--rojo" data-nav="Especialidades">
+  <h2>Especialidades</h2>
+  <div class="sub">La firma de la casa</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Herradura Especial</span><span class="badge">Top venta</span><span class="desc">Costilla, chorizo y queso derretido sobre tortilla doble</span></div><div class="price">$115</div></div>
+    <div class="item"><div><span class="name">Molcajete La Herradura</span><span class="desc">Arrachera, camarón, nopal y queso panela, para compartir</span></div><div class="price">$285</div></div>
+    <div class="item"><div><span class="name">Trompo del Herrero</span><span class="desc">Pastor al trompo con piña asada y cebolla morada</span></div><div class="price">$99</div></div>
+  </div>
+</section>
+
+<section id="carne-asada" class="band band--crema" data-nav="Carne Asada">
+  <h2>Carne Asada</h2>
+  <div class="sub">Directo del carbón</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Arrachera al carbón</span><span class="desc">300g con guacamole, frijoles y tortillas de harina</span></div><div class="price">$189</div></div>
+    <div class="item"><div><span class="name">Rib eye La Herradura</span><span class="desc">350g término a elegir, papa asada y ensalada</span></div><div class="price">$249</div></div>
+    <div class="item"><div><span class="name">Costilla de res BBQ</span><span class="desc">Costilla glaseada con salsa de la casa</span></div><div class="price">$175</div></div>
+  </div>
+</section>
+
+<section id="combinados" class="band band--amarillo" data-nav="Combinados">
+  <h2>Combinados</h2>
+  <div class="sub">Para no batallar eligiendo</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Combo Herradura</span><span class="desc">3 tacos surtidos + refresco + agua fresca chica</span></div><div class="price">$135</div></div>
+    <div class="item"><div><span class="name">Combo Familiar</span><span class="desc">12 tacos surtidos + 2 refrescos + salsas</span></div><div class="price">$395</div></div>
+    <div class="item"><div><span class="name">Combo Asador</span><span class="desc">Gringa + orden de tacos de asada + bebida</span></div><div class="price">$179</div></div>
+  </div>
+</section>
+
+<section id="quesos" class="band band--carbon" data-nav="Quesos">
+  <h2>Quesos</h2>
+  <div class="sub">Fundidos y derretidos</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Queso fundido con chorizo</span><span class="desc">Con tortillas de harina hechas al momento</span></div><div class="price">$95</div></div>
+    <div class="item"><div><span class="name">Queso fundido con rajas</span><span class="desc">Rajas poblanas y crema</span></div><div class="price">$89</div></div>
+    <div class="item"><div><span class="name">Queso a la plancha</span><span class="desc">Queso Oaxaca dorado, servido en cazuela</span></div><div class="price">$79</div></div>
+  </div>
+</section>
+
+<section id="gringas" class="band band--rojo" data-nav="Gringas">
+  <h2>Gringas</h2>
+  <div class="sub">Tortilla de harina, queso y todo lo bueno</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Gringa de pastor</span><span class="desc">Con piña y salsa verde</span></div><div class="price">$58</div></div>
+    <div class="item"><div><span class="name">Gringa de arrachera</span><span class="badge">Popular</span><span class="desc">Con guacamole</span></div><div class="price">$69</div></div>
+    <div class="item"><div><span class="name">Gringa mixta</span><span class="desc">Pastor y arrachera</span></div><div class="price">$72</div></div>
+  </div>
+</section>
+
+<section id="papas-rellenas" class="band band--crema" data-nav="Papas Rellenas">
+  <h2>Papas Rellenas</h2>
+  <div class="sub">Grandes y bien cargadas</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Papa arrachera</span><span class="desc">Con queso, crema y pico de gallo</span></div><div class="price">$85</div></div>
+    <div class="item"><div><span class="name">Papa tres carnes</span><span class="desc">Pastor, chorizo y arrachera</span></div><div class="price">$99</div></div>
+    <div class="item"><div><span class="name">Papa vegetariana</span><span class="desc">Rajas, elote y champiñones</span></div><div class="price">$75</div></div>
+  </div>
+</section>
+
+<section id="tacos" class="band band--amarillo" data-nav="Tacos">
+  <h2>Tacos</h2>
+  <div class="sub">Precio por pieza</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Pastor</span></div><div class="price">$18</div></div>
+    <div class="item"><div><span class="name">Arrachera</span></div><div class="price">$26</div></div>
+    <div class="item"><div><span class="name">Bistec</span></div><div class="price">$22</div></div>
+    <div class="item"><div><span class="name">Chorizo</span></div><div class="price">$18</div></div>
+    <div class="item"><div><span class="name">Suadero</span></div><div class="price">$20</div></div>
+    <div class="item"><div><span class="name">Campechano</span><span class="desc">Res y chorizo</span></div><div class="price">$24</div></div>
+  </div>
+</section>
+
+<section id="orden-4-tacos" class="band band--carbon" data-nav="Orden 4 Tacos">
+  <h2>Orden de 4 Tacos</h2>
+  <div class="sub">Elige tu relleno</div>
+  <div class="items">
+    <div class="item"><div><span class="name">4 tacos de pastor</span></div><div class="price">$65</div></div>
+    <div class="item"><div><span class="name">4 tacos de arrachera</span></div><div class="price">$95</div></div>
+    <div class="item"><div><span class="name">4 tacos surtidos</span><span class="desc">Tú eliges la combinación</span></div><div class="price">$80</div></div>
+  </div>
+</section>
+
+<section id="quesadillas" class="band band--rojo" data-nav="Quesadillas">
+  <h2>Quesadillas</h2>
+  <div class="sub">Precio por pieza</div>
+  <div class="items">
+    <div class="item"><div><span class="name">De queso</span></div><div class="price">$28</div></div>
+    <div class="item"><div><span class="name">De pastor</span></div><div class="price">$36</div></div>
+    <div class="item"><div><span class="name">De arrachera</span></div><div class="price">$42</div></div>
+    <div class="item"><div><span class="name">De champiñón</span></div><div class="price">$32</div></div>
+  </div>
+</section>
+
+<section id="orden-2-quesadillas" class="band band--crema" data-nav="Orden 2 Quesadillas">
+  <h2>Orden de 2 Quesadillas</h2>
+  <div class="sub">Combinadas</div>
+  <div class="items">
+    <div class="item"><div><span class="name">2 de queso</span></div><div class="price">$52</div></div>
+    <div class="item"><div><span class="name">2 de arrachera</span></div><div class="price">$78</div></div>
+    <div class="item"><div><span class="name">1 de pastor + 1 de queso</span></div><div class="price">$60</div></div>
+  </div>
+</section>
+
+<section id="bebidas" class="band band--amarillo" data-nav="Bebidas">
+  <h2>Bebidas</h2>
+  <div class="sub">Para bajar el picor</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Agua fresca del día</span><span class="desc">Jamaica, horchata o pepino</span></div><div class="price">$28</div></div>
+    <div class="item"><div><span class="name">Refresco</span></div><div class="price">$25</div></div>
+    <div class="item"><div><span class="name">Michelada La Herradura</span></div><div class="price">$65</div></div>
+    <div class="item"><div><span class="name">Cerveza</span></div><div class="price">$45</div></div>
+  </div>
+</section>
+
+<section id="otros" class="band band--carbon" data-nav="Otros">
+  <h2>Otros</h2>
+  <div class="sub">Extras y antojitos</div>
+  <div class="items">
+    <div class="item"><div><span class="name">Orden de guacamole</span></div><div class="price">$45</div></div>
+    <div class="item"><div><span class="name">Frijoles charros</span></div><div class="price">$38</div></div>
+    <div class="item"><div><span class="name">Consomé de res</span></div><div class="price">$35</div></div>
+    <div class="item"><div><span class="name">Nopales asados</span></div><div class="price">$32</div></div>
+  </div>
+</section>
+
+<footer>
+  <svg class="herradura-small" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="9">
+    <path d="M25 15 C15 15 12 25 12 40 L12 60 C12 78 25 90 50 90 C75 90 88 78 88 60 L88 40 C88 25 85 15 75 15" stroke-linecap="round"/>
+    <circle cx="18" cy="18" r="4.5" fill="currentColor" stroke="none"/>
+    <circle cx="82" cy="18" r="4.5" fill="currentColor" stroke="none"/>
+  </svg>
+  <p>TAQUERÍA LA HERRADURA</p>
+  <p style="opacity:0.45; font-size:0.7rem;">Menú de prueba — precios de ejemplo</p>
+</footer>
+
+<script>
+  const sections = Array.from(document.querySelectorAll('section[data-nav]'));
+  const nav = document.getElementById('pillNav');
+
+  sections.forEach(sec => {
+    const btn = document.createElement('button');
+    btn.className = 'pill';
+    btn.textContent = sec.dataset.nav;
+    btn.addEventListener('click', () => {
+      sec.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+    btn.dataset.target = sec.id;
+    nav.appendChild(btn);
+  });
+
+  const pills = Array.from(nav.querySelectorAll('.pill'));
+
+  function setActive(id){
+    pills.forEach(p => p.classList.toggle('active', p.dataset.target === id));
+    const activePill = pills.find(p => p.dataset.target === id);
+    if(activePill){
+      activePill.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    }
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        setActive(entry.target.id);
+      }
+    });
+  }, {rootMargin: '-120px 0px -70% 0px', threshold: 0});
+
+  sections.forEach(sec => observer.observe(sec));
+  if(sections[0]) setActive(sections[0].id);
+
+  const progressBar = document.getElementById('progressBar');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  });
+</script>
+
+</body>
+</html>
