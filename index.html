@@ -192,7 +192,10 @@
     border-radius:10px;
     object-fit:cover;
     background:rgba(0,0,0,0.08);
+    cursor:pointer;
+    transition:transform 0.15s ease;
   }
+  .item-img:hover{transform:scale(1.05);}
   .item-info{min-width:0;}
   .item .name{
     font-weight:800;
@@ -227,6 +230,48 @@
   }
   footer .herradura-small-img{width:40px; height:auto; margin-bottom:10px;}
   footer p{font-weight:700; font-size:0.85rem; opacity:0.7; margin:4px 0;}
+
+  /* ===== preview modal ===== */
+  .preview-overlay{
+    position:fixed; inset:0; z-index:100;
+    background:rgba(20,12,8,0.82);
+    display:flex; align-items:center; justify-content:center;
+    padding:32px;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.2s ease;
+  }
+  .preview-overlay.open{opacity:1; pointer-events:auto;}
+  .preview-box{
+    max-width:min(420px, 90vw);
+    text-align:center;
+  }
+  .preview-box img{
+    width:100%; height:auto;
+    max-height:70vh;
+    object-fit:contain;
+    border-radius:16px;
+    background:var(--crema);
+    box-shadow:0 10px 40px rgba(0,0,0,0.4);
+  }
+  .preview-box .preview-name{
+    display:block;
+    color:var(--blanco);
+    font-family:'Anton', sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    font-size:1.1rem;
+    margin-top:16px;
+  }
+  .preview-close{
+    position:absolute; top:18px; right:22px;
+    color:var(--blanco);
+    font-size:2rem;
+    line-height:1;
+    background:none; border:none;
+    cursor:pointer;
+    opacity:0.8;
+  }
+  .preview-close:hover{opacity:1;}
 </style>
 </head>
 <body>
@@ -255,18 +300,18 @@
   <h2>Especialidades</h2>
   <div class="sub">La firma de la casa</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/1.png" alt="Herradura Especial"><div class="item-info"><span class="name">Herradura Especial</span><span class="desc">2 carnes asadas de bistec, champiñones y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/2.png" alt="Alambre Arrachera"><div class="item-info"><span class="name">Alambre Arrachera</span><span class="desc">Pimiento morrón, cebolla, tocino y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/3.png" alt="Alambre de Bistec de Res"><div class="item-info"><span class="name">Alambre de Bistec de Res</span><span class="desc">Pimiento morrón, cebolla, tocino y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/4.png" alt="Alambre de Pastor"><div class="item-info"><span class="name">Alambre de Pastor</span><span class="desc">Pimiento morrón, cebolla, tocino y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/5.png" alt="Alambre Hawaiana"><div class="item-info"><span class="name">Alambre Hawaiana</span><span class="desc">Pastor, pimiento morrón, cebolla, tocino, queso y piña</span></div></div>
-    <div class="item"><img class="item-img" src="/images/6.png" alt="Alambre de Pollo"><div class="item-info"><span class="name">Alambre de Pollo</span><span class="desc">Pimiento morrón, cebolla, tocino y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/7.png" alt="Alambre Especial"><div class="item-info"><span class="name">Alambre Especial</span><span class="desc">Bistec de res, pastor, pimiento morrón, cebolla, tocino, queso y piña</span></div></div>
-    <div class="item"><img class="item-img" src="/images/8.png" alt="Alambre Vegetariano"><div class="item-info"><span class="name">Alambre Vegetariano</span><span class="desc">Champiñones, pimiento morrón, cebolla, tocino, queso y piña</span></div></div>
-    <div class="item"><img class="item-img" src="/images/9.png" alt="Que-me-ves"><div class="item-info"><span class="name">Que-me-ves</span><span class="desc">Bistec de res, pastor, tocino y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/10.png" alt="No-que-no"><div class="item-info"><span class="name">No-que-no</span><span class="desc">Chuleta, pastor, tocino y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/11.png" alt="Brasa"><div class="item-info"><span class="name">Brasa</span><span class="desc">Pastor, chuleta, nopal, jamón y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/12.png" alt="Flama"><div class="item-info"><span class="name">Flama</span><span class="desc">Pastor, champiñones y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/1.png" alt="Herradura Especial" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Herradura Especial</span><span class="desc">2 carnes asadas de bistec, champiñones y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/2.png" alt="Alambre Arrachera" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Alambre Arrachera</span><span class="desc">Pimiento morrón, cebolla, tocino y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/3.png" alt="Alambre de Bistec de Res" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Alambre de Bistec de Res</span><span class="desc">Pimiento morrón, cebolla, tocino y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/4.png" alt="Alambre de Pastor" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Alambre de Pastor</span><span class="desc">Pimiento morrón, cebolla, tocino y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/5.png" alt="Alambre Hawaiana" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Alambre Hawaiana</span><span class="desc">Pastor, pimiento morrón, cebolla, tocino, queso y piña</span></div></div>
+    <div class="item"><img class="item-img" src="/images/6.png" alt="Alambre de Pollo" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Alambre de Pollo</span><span class="desc">Pimiento morrón, cebolla, tocino y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/7.png" alt="Alambre Especial" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Alambre Especial</span><span class="desc">Bistec de res, pastor, pimiento morrón, cebolla, tocino, queso y piña</span></div></div>
+    <div class="item"><img class="item-img" src="/images/8.png" alt="Alambre Vegetariano" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Alambre Vegetariano</span><span class="desc">Champiñones, pimiento morrón, cebolla, tocino, queso y piña</span></div></div>
+    <div class="item"><img class="item-img" src="/images/9.png" alt="Que-me-ves" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Que-me-ves</span><span class="desc">Bistec de res, pastor, tocino y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/10.png" alt="No-que-no" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">No-que-no</span><span class="desc">Chuleta, pastor, tocino y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/11.png" alt="Brasa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Brasa</span><span class="desc">Pastor, chuleta, nopal, jamón y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/12.png" alt="Flama" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Flama</span><span class="desc">Pastor, champiñones y queso</span></div></div>
   </div>
 </section>
 
@@ -274,9 +319,9 @@
   <h2>Carne Asada</h2>
   <div class="sub">Directo del carbón</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/13.png" alt="Arrachera Asada"><div class="item-info"><span class="name">Arrachera Asada</span></div></div>
-    <div class="item"><img class="item-img" src="/images/14.png" alt="Sirloin Asado"><div class="item-info"><span class="name">Sirloin Asado</span></div></div>
-    <div class="item"><img class="item-img" src="/images/15.png" alt="Pechuga Asada"><div class="item-info"><span class="name">Pechuga Asada</span></div></div>
+    <div class="item"><img class="item-img" src="/images/13.png" alt="Arrachera Asada" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Arrachera Asada</span></div></div>
+    <div class="item"><img class="item-img" src="/images/14.png" alt="Sirloin Asado" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Sirloin Asado</span></div></div>
+    <div class="item"><img class="item-img" src="/images/15.png" alt="Pechuga Asada" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Pechuga Asada</span></div></div>
   </div>
 </section>
 
@@ -284,8 +329,8 @@
   <h2>Combinados</h2>
   <div class="sub">Para no batallar eligiendo</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/16.png" alt="Bistec de Res c/ Pastor y Queso"><div class="item-info"><span class="name">Bistec de Res c/ Pastor y Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/17.png" alt="Bistec c/ Champiñones y Queso"><div class="item-info"><span class="name">Bistec c/ Champiñones y Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/16.png" alt="Bistec de Res c/ Pastor y Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Bistec de Res c/ Pastor y Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/17.png" alt="Bistec c/ Champiñones y Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Bistec c/ Champiñones y Queso</span></div></div>
   </div>
 </section>
 
@@ -293,12 +338,12 @@
   <h2>Quesos</h2>
   <div class="sub">Fundidos y derretidos</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/18.png" alt="Queso Fundido Solo"><div class="item-info"><span class="name">Queso Fundido Solo</span></div></div>
-    <div class="item"><img class="item-img" src="/images/19.png" alt="Queso con Bistec"><div class="item-info"><span class="name">Queso con Bistec</span></div></div>
-    <div class="item"><img class="item-img" src="/images/20.png" alt="Queso con Arrachera"><div class="item-info"><span class="name">Queso con Arrachera</span></div></div>
-    <div class="item"><img class="item-img" src="/images/21.png" alt="Queso con Pastor"><div class="item-info"><span class="name">Queso con Pastor</span></div></div>
-    <div class="item"><img class="item-img" src="/images/22.png" alt="Queso con Chorizo"><div class="item-info"><span class="name">Queso con Chorizo</span></div></div>
-    <div class="item"><img class="item-img" src="/images/23.png" alt="Queso con Champiñones"><div class="item-info"><span class="name">Queso con Champiñones</span></div></div>
+    <div class="item"><img class="item-img" src="/images/18.png" alt="Queso Fundido Solo" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Queso Fundido Solo</span></div></div>
+    <div class="item"><img class="item-img" src="/images/19.png" alt="Queso con Bistec" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Queso con Bistec</span></div></div>
+    <div class="item"><img class="item-img" src="/images/20.png" alt="Queso con Arrachera" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Queso con Arrachera</span></div></div>
+    <div class="item"><img class="item-img" src="/images/21.png" alt="Queso con Pastor" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Queso con Pastor</span></div></div>
+    <div class="item"><img class="item-img" src="/images/22.png" alt="Queso con Chorizo" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Queso con Chorizo</span></div></div>
+    <div class="item"><img class="item-img" src="/images/23.png" alt="Queso con Champiñones" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Queso con Champiñones</span></div></div>
   </div>
 </section>
 
@@ -306,9 +351,9 @@
   <h2>Gringas</h2>
   <div class="sub">Tortilla de harina, queso y todo lo bueno</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/24.png" alt="Gringa con Pastor"><div class="item-info"><span class="name">Gringa con Pastor</span></div></div>
-    <div class="item"><img class="item-img" src="/images/25.png" alt="Gringa con Sirloin"><div class="item-info"><span class="name">Gringa con Sirloin</span></div></div>
-    <div class="item"><img class="item-img" src="/images/26.png" alt="Gringa con Bistec de Res"><div class="item-info"><span class="name">Gringa con Bistec de Res</span></div></div>
+    <div class="item"><img class="item-img" src="/images/24.png" alt="Gringa con Pastor" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Gringa con Pastor</span></div></div>
+    <div class="item"><img class="item-img" src="/images/25.png" alt="Gringa con Sirloin" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Gringa con Sirloin</span></div></div>
+    <div class="item"><img class="item-img" src="/images/26.png" alt="Gringa con Bistec de Res" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Gringa con Bistec de Res</span></div></div>
   </div>
 </section>
 
@@ -316,15 +361,15 @@
   <h2>Papas Rellenas</h2>
   <div class="sub">Grandes y bien cargadas</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/27.png" alt="Papa con Mantequilla"><div class="item-info"><span class="name">Papa con Mantequilla</span></div></div>
-    <div class="item"><img class="item-img" src="/images/28.png" alt="Papa Hawaiana"><div class="item-info"><span class="name">Papa Hawaiana</span><span class="desc">Pastor, piña y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/29.png" alt="Papa Especial"><div class="item-info"><span class="name">Papa Especial</span><span class="desc">Bistec de res, pastor y queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/30.png" alt="Papa Arrachera"><div class="item-info"><span class="name">Papa Arrachera</span></div></div>
-    <div class="item"><img class="item-img" src="/images/31.png" alt="Papa con Sirloin"><div class="item-info"><span class="name">Papa con Sirloin</span></div></div>
-    <div class="item"><img class="item-img" src="/images/32.png" alt="Papa con Pastor y Queso"><div class="item-info"><span class="name">Papa con Pastor y Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/33.png" alt="Papa con Bistec de Res y Queso"><div class="item-info"><span class="name">Papa con Bistec de Res y Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/34.png" alt="Papa con Queso"><div class="item-info"><span class="name">Papa con Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/35.png" alt="Papa con Champiñones y Queso"><div class="item-info"><span class="name">Papa con Champiñones y Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/27.png" alt="Papa con Mantequilla" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa con Mantequilla</span></div></div>
+    <div class="item"><img class="item-img" src="/images/28.png" alt="Papa Hawaiana" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa Hawaiana</span><span class="desc">Pastor, piña y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/29.png" alt="Papa Especial" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa Especial</span><span class="desc">Bistec de res, pastor y queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/30.png" alt="Papa Arrachera" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa Arrachera</span></div></div>
+    <div class="item"><img class="item-img" src="/images/31.png" alt="Papa con Sirloin" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa con Sirloin</span></div></div>
+    <div class="item"><img class="item-img" src="/images/32.png" alt="Papa con Pastor y Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa con Pastor y Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/33.png" alt="Papa con Bistec de Res y Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa con Bistec de Res y Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/34.png" alt="Papa con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/35.png" alt="Papa con Champiñones y Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Papa con Champiñones y Queso</span></div></div>
   </div>
 </section>
 
@@ -332,22 +377,22 @@
   <h2>Tacos</h2>
   <div class="sub">Precio por pieza</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/36.png" alt="Al Pastor"><div class="item-info"><span class="name">Al Pastor</span></div></div>
-    <div class="item"><img class="item-img" src="/images/37.png" alt="Al Pastor con Queso"><div class="item-info"><span class="name">Al Pastor con Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/38.png" alt="Suadero"><div class="item-info"><span class="name">Suadero</span></div></div>
-    <div class="item"><img class="item-img" src="/images/39.png" alt="Suadero con Queso"><div class="item-info"><span class="name">Suadero con Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/40.png" alt="Campechano"><div class="item-info"><span class="name">Campechano</span></div></div>
-    <div class="item"><img class="item-img" src="/images/41.png" alt="Campechano con Queso"><div class="item-info"><span class="name">Campechano con Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/42.png" alt="Sirloin"><div class="item-info"><span class="name">Sirloin</span></div></div>
-    <div class="item"><img class="item-img" src="/images/43.png" alt="Sirloin con Queso"><div class="item-info"><span class="name">Sirloin con Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/44.png" alt="Arrachera"><div class="item-info"><span class="name">Arrachera</span></div></div>
-    <div class="item"><img class="item-img" src="/images/45.png" alt="Arrachera con Queso"><div class="item-info"><span class="name">Arrachera con Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/46.png" alt="Chuleta"><div class="item-info"><span class="name">Chuleta</span></div></div>
-    <div class="item"><img class="item-img" src="/images/47.png" alt="Chuleta con Queso"><div class="item-info"><span class="name">Chuleta con Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/48.png" alt="Bistec de Res"><div class="item-info"><span class="name">Bistec de Res</span></div></div>
-    <div class="item"><img class="item-img" src="/images/49.png" alt="Bistec de Res con Queso"><div class="item-info"><span class="name">Bistec de Res con Queso</span></div></div>
-    <div class="item"><img class="item-img" src="/images/50.png" alt="Chorizo"><div class="item-info"><span class="name">Chorizo</span></div></div>
-    <div class="item"><img class="item-img" src="/images/51.png" alt="Chorizo con Queso"><div class="item-info"><span class="name">Chorizo con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/36.png" alt="Al Pastor" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Al Pastor</span></div></div>
+    <div class="item"><img class="item-img" src="/images/37.png" alt="Al Pastor con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Al Pastor con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/38.png" alt="Suadero" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Suadero</span></div></div>
+    <div class="item"><img class="item-img" src="/images/39.png" alt="Suadero con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Suadero con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/40.png" alt="Campechano" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Campechano</span></div></div>
+    <div class="item"><img class="item-img" src="/images/41.png" alt="Campechano con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Campechano con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/42.png" alt="Sirloin" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Sirloin</span></div></div>
+    <div class="item"><img class="item-img" src="/images/43.png" alt="Sirloin con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Sirloin con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/44.png" alt="Arrachera" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Arrachera</span></div></div>
+    <div class="item"><img class="item-img" src="/images/45.png" alt="Arrachera con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Arrachera con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/46.png" alt="Chuleta" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Chuleta</span></div></div>
+    <div class="item"><img class="item-img" src="/images/47.png" alt="Chuleta con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Chuleta con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/48.png" alt="Bistec de Res" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Bistec de Res</span></div></div>
+    <div class="item"><img class="item-img" src="/images/49.png" alt="Bistec de Res con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Bistec de Res con Queso</span></div></div>
+    <div class="item"><img class="item-img" src="/images/50.png" alt="Chorizo" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Chorizo</span></div></div>
+    <div class="item"><img class="item-img" src="/images/51.png" alt="Chorizo con Queso" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Chorizo con Queso</span></div></div>
   </div>
 </section>
 
@@ -355,19 +400,19 @@
   <h2>Orden de 4 Tacos</h2>
   <div class="sub">Incluye papa</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/52.png" alt="Arrachera con 1 Papa"><div class="item-info"><span class="name">Arrachera con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/53.png" alt="Costilla de Res con 1 Papa"><div class="item-info"><span class="name">Costilla de Res con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/54.png" alt="Costilla de Res con Queso con 1 Papa"><div class="item-info"><span class="name">Costilla de Res con Queso con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/55.png" alt="Sirloin con 1 Papa"><div class="item-info"><span class="name">Sirloin con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/56.png" alt="Sirloin con Queso y 1 Papa"><div class="item-info"><span class="name">Sirloin con Queso y 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/57.png" alt="Suadero con 1 Papa"><div class="item-info"><span class="name">Suadero con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/58.png" alt="Suadero con Queso y 1 Papa"><div class="item-info"><span class="name">Suadero con Queso y 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/59.png" alt="Pastor con 1 Papa"><div class="item-info"><span class="name">Pastor con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/60.png" alt="Pastor con Queso y 1 Papa"><div class="item-info"><span class="name">Pastor con Queso y 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/61.png" alt="Bistec de Res con 1 Papa"><div class="item-info"><span class="name">Bistec de Res con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/62.png" alt="Bistec de Res con Queso y 1 Papa"><div class="item-info"><span class="name">Bistec de Res con Queso y 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/63.png" alt="Pollo con 1 Papa"><div class="item-info"><span class="name">Pollo con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/64.png" alt="Pollo con Queso y 1 Papa"><div class="item-info"><span class="name">Pollo con Queso y 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/52.png" alt="Arrachera con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Arrachera con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/53.png" alt="Costilla de Res con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Costilla de Res con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/54.png" alt="Costilla de Res con Queso con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Costilla de Res con Queso con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/55.png" alt="Sirloin con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Sirloin con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/56.png" alt="Sirloin con Queso y 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Sirloin con Queso y 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/57.png" alt="Suadero con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Suadero con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/58.png" alt="Suadero con Queso y 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Suadero con Queso y 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/59.png" alt="Pastor con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Pastor con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/60.png" alt="Pastor con Queso y 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Pastor con Queso y 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/61.png" alt="Bistec de Res con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Bistec de Res con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/62.png" alt="Bistec de Res con Queso y 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Bistec de Res con Queso y 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/63.png" alt="Pollo con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Pollo con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/64.png" alt="Pollo con Queso y 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Pollo con Queso y 1 Papa</span></div></div>
   </div>
 </section>
 
@@ -375,12 +420,12 @@
   <h2>Quesadillas</h2>
   <div class="sub">Precio por pieza</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/65.png" alt="Quesadilla de Pastor"><div class="item-info"><span class="name">Quesadilla de Pastor</span></div></div>
-    <div class="item"><img class="item-img" src="/images/66.png" alt="Quesadilla de Bistec de Res"><div class="item-info"><span class="name">Quesadilla de Bistec de Res</span></div></div>
-    <div class="item"><img class="item-img" src="/images/67.png" alt="Quesadilla de Sirloin"><div class="item-info"><span class="name">Quesadilla de Sirloin</span></div></div>
-    <div class="item"><img class="item-img" src="/images/68.png" alt="Quesadilla de Arrachera"><div class="item-info"><span class="name">Quesadilla de Arrachera</span></div></div>
-    <div class="item"><img class="item-img" src="/images/69.png" alt="Quesadilla de Suadero"><div class="item-info"><span class="name">Quesadilla de Suadero</span></div></div>
-    <div class="item"><img class="item-img" src="/images/70.png" alt="Quesadilla de Chorizo"><div class="item-info"><span class="name">Quesadilla de Chorizo</span></div></div>
+    <div class="item"><img class="item-img" src="/images/65.png" alt="Quesadilla de Pastor" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Quesadilla de Pastor</span></div></div>
+    <div class="item"><img class="item-img" src="/images/66.png" alt="Quesadilla de Bistec de Res" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Quesadilla de Bistec de Res</span></div></div>
+    <div class="item"><img class="item-img" src="/images/67.png" alt="Quesadilla de Sirloin" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Quesadilla de Sirloin</span></div></div>
+    <div class="item"><img class="item-img" src="/images/68.png" alt="Quesadilla de Arrachera" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Quesadilla de Arrachera</span></div></div>
+    <div class="item"><img class="item-img" src="/images/69.png" alt="Quesadilla de Suadero" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Quesadilla de Suadero</span></div></div>
+    <div class="item"><img class="item-img" src="/images/70.png" alt="Quesadilla de Chorizo" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Quesadilla de Chorizo</span></div></div>
   </div>
 </section>
 
@@ -388,12 +433,12 @@
   <h2>Orden de 2 Quesadillas</h2>
   <div class="sub">Incluye papa</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/71.png" alt="Al Pastor con 1 Papa"><div class="item-info"><span class="name">Al Pastor con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/72.png" alt="Arrachera con 1 Papa"><div class="item-info"><span class="name">Arrachera con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/73.png" alt="Sirloin con 1 Papa"><div class="item-info"><span class="name">Sirloin con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/74.png" alt="Bistec de Res con 1 Papa"><div class="item-info"><span class="name">Bistec de Res con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/75.png" alt="Suadero con 1 Papa"><div class="item-info"><span class="name">Suadero con 1 Papa</span></div></div>
-    <div class="item"><img class="item-img" src="/images/76.png" alt="Chorizo con 1 Papa"><div class="item-info"><span class="name">Chorizo con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/71.png" alt="Al Pastor con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Al Pastor con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/72.png" alt="Arrachera con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Arrachera con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/73.png" alt="Sirloin con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Sirloin con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/74.png" alt="Bistec de Res con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Bistec de Res con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/75.png" alt="Suadero con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Suadero con 1 Papa</span></div></div>
+    <div class="item"><img class="item-img" src="/images/76.png" alt="Chorizo con 1 Papa" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Chorizo con 1 Papa</span></div></div>
   </div>
 </section>
 
@@ -401,10 +446,10 @@
   <h2>Bebidas</h2>
   <div class="sub">Para bajar el picor</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/77.png" alt="Refresco 600 ml"><div class="item-info"><span class="name">Refresco 600 ml</span></div></div>
-    <div class="item"><img class="item-img" src="/images/78.png" alt="Refresco Lata"><div class="item-info"><span class="name">Refresco Lata</span></div></div>
-    <div class="item"><img class="item-img" src="/images/79.png" alt="Agua de Sabor 500 ml"><div class="item-info"><span class="name">Agua de Sabor 500 ml</span></div></div>
-    <div class="item"><img class="item-img" src="/images/80.png" alt="Café o Té"><div class="item-info"><span class="name">Café o Té</span></div></div>
+    <div class="item"><img class="item-img" src="/images/77.png" alt="Refresco 600 ml" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Refresco 600 ml</span></div></div>
+    <div class="item"><img class="item-img" src="/images/78.png" alt="Refresco Lata" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Refresco Lata</span></div></div>
+    <div class="item"><img class="item-img" src="/images/79.png" alt="Agua de Sabor 500 ml" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Agua de Sabor 500 ml</span></div></div>
+    <div class="item"><img class="item-img" src="/images/80.png" alt="Café o Té" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Café o Té</span></div></div>
   </div>
 </section>
 
@@ -412,10 +457,18 @@
   <h2>Otros</h2>
   <div class="sub">Extras y antojitos</div>
   <div class="items">
-    <div class="item"><img class="item-img" src="/images/81.png" alt="Cebollitas Cambray"><div class="item-info"><span class="name">Cebollitas Cambray</span></div></div>
-    <div class="item"><img class="item-img" src="/images/82.png" alt="Nopales Asados"><div class="item-info"><span class="name">Nopales Asados</span></div></div>
+    <div class="item"><img class="item-img" src="/images/81.png" alt="Cebollitas Cambray" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Cebollitas Cambray</span></div></div>
+    <div class="item"><img class="item-img" src="/images/82.png" alt="Nopales Asados" onerror="this.onerror=null;this.src=&quot;/images/nohay.png&quot;;"><div class="item-info"><span class="name">Nopales Asados</span></div></div>
   </div>
 </section>
+
+<div class="preview-overlay" id="previewOverlay">
+  <button class="preview-close" id="previewClose" aria-label="Cerrar">&times;</button>
+  <div class="preview-box">
+    <img id="previewImg" src="" alt="">
+    <span class="preview-name" id="previewName"></span>
+  </div>
+</div>
 
 <footer>
   <img src="/images/herradura.png" alt="Herradura" class="herradura-small-img">
@@ -465,6 +518,40 @@
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
     progressBar.style.width = pct + '%';
+  });
+
+  // ===== preview modal =====
+  const previewOverlay = document.getElementById('previewOverlay');
+  const previewImg = document.getElementById('previewImg');
+  const previewName = document.getElementById('previewName');
+  const previewClose = document.getElementById('previewClose');
+
+  function openPreview(src, name){
+    previewImg.src = src;
+    previewImg.alt = name;
+    previewName.textContent = name;
+    previewOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePreview(){
+    previewOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.item-img').forEach(img => {
+    img.addEventListener('click', () => {
+      const name = img.closest('.item').querySelector('.name').textContent;
+      openPreview(img.getAttribute('src'), name);
+    });
+  });
+
+  previewClose.addEventListener('click', closePreview);
+  previewOverlay.addEventListener('click', (e) => {
+    if(e.target === previewOverlay) closePreview();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closePreview();
   });
 </script>
 
