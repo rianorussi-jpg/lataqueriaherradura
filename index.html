@@ -58,6 +58,7 @@
     display:flex; align-items:center; gap:10px;
   }
   .logo svg{width:34px; height:34px; flex-shrink:0;}
+  .logo-img{height:42px; width:auto; display:block;}
   .logo-text{
     color:var(--blanco);
     font-size:1.5rem;
@@ -107,9 +108,9 @@
       var(--crema);
     overflow:hidden;
   }
-  .hero .herradura-big{
-    width:110px; height:110px; margin:0 auto 18px;
-    color:var(--rojo);
+  .hero .herradura-big-img{
+    width:110px; height:auto; margin:0 auto 18px;
+    display:block;
   }
   .hero h1{
     font-size:2.6rem;
@@ -219,12 +220,7 @@
 <header>
   <div class="brand-row">
     <div class="logo">
-      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="9" style="color:var(--amarillo)">
-        <path d="M25 15 C15 15 12 25 12 40 L12 60 C12 78 25 90 50 90 C75 90 88 78 88 60 L88 40 C88 25 85 15 75 15" stroke-linecap="round"/>
-        <circle cx="18" cy="18" r="4.5" fill="currentColor" stroke="none"/>
-        <circle cx="82" cy="18" r="4.5" fill="currentColor" stroke="none"/>
-      </svg>
-      <div class="logo-text">LA<br><span>HERRADURA</span></div>
+      <img src="/images/logo.png" alt="La Herradura" class="logo-img">
     </div>
     <div class="icon-btns">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -235,11 +231,7 @@
 </header>
 
 <section class="hero">
-  <svg class="herradura-big" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="8">
-    <path d="M25 15 C15 15 12 25 12 40 L12 60 C12 78 25 90 50 90 C75 90 88 78 88 60 L88 40 C88 25 85 15 75 15" stroke-linecap="round"/>
-    <circle cx="18" cy="18" r="4" fill="currentColor" stroke="none"/>
-    <circle cx="82" cy="18" r="4" fill="currentColor" stroke="none"/>
-  </svg>
+  <img src="/images/herradura.png" alt="Herradura" class="herradura-big-img">
   <h1>Menú<em>Taquería La Herradura</em></h1>
   <p>Sabor con suerte de sobra. Toca una sección para ir directo a lo que se te antoja.</p>
 </section>
